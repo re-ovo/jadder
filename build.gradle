@@ -1,0 +1,42 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group = 'me.rerere'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:9.5'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+
+gradlePlugin {
+    plugins {
+        create('jadder') {
+            id = 'me.rerere.jadder'
+            implementationClass = 'me.rerere.jadder.JadderPlugin'
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url = uri(layout.buildDirectory.dir("maven-repo"))
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
