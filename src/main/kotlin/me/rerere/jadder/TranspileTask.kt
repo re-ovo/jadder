@@ -41,7 +41,7 @@ abstract class TranspileTask : DefaultTask() {
 
             transformers.forEach { transformer ->
                 val classReader = ClassReader(currentBytes)
-                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES or ClassWriter.COMPUTE_MAXS)
+                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
 
                 transformer.transform(TransformContext(
                     classReader = classReader,
